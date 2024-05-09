@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             //atributos de la table
-            $table->id();
+            $table->bigIncrements('id');
             $table->timestamps();
             $table->string('nombre');
             $table->string('apellido',200);
             $table->date('fecha_nacimiento');
-            $table->date('edad')->nullable();
+            $table->integer('edad')->nullable();
         });
     }
 

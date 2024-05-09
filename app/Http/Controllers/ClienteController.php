@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+//importamos el cliente Model
 
+use App\Models\Cliente;
 class ClienteController extends Controller
 {
     /**
@@ -12,15 +14,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        //Retornar todos los valores de la tabla cliente
+        return Client::all();
     }
 
     /**
@@ -28,23 +23,8 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        //Creamos todos los valores
+        return Cliente::create($request->all());
     }
 
     /**
@@ -52,7 +32,14 @@ class ClienteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //Va tomar el objeto del cliente qe corresponda al ID
+        $client = Cliente::findOrFail($id);
+        $client->nombre = $request->nombre;
+        $client->apellido = $request->apellido;
+        $client->fecha_nacimiento = $request->fecha_nacimiento;
+        $client->edad = $request->edad;
+        $client->update();
+        return $client;
     }
 
     /**
@@ -60,6 +47,8 @@ class ClienteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //Buscar por id al cliente
+        $client = Cliente::findOrFail($id);
+        $client->delete();
     }
 }
